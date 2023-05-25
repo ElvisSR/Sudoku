@@ -1,0 +1,11 @@
+#logotipo
+{
+    filter:brightness();
+    mix-blend-mode:multiply;
+    width:5vw;
+}
+.navbar
+{
+  background-image: linear-gradient(to right, #212a6a, #6a7af9);
+}
+

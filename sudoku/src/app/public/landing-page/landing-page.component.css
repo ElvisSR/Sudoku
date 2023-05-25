@@ -1,0 +1,9 @@
+.container-fluid{
+  background-image: linear-gradient(to right, #212a6a, #6a7af9);
+  min-height: calc(100vh - 56px);
+}
+.row,col{
+  padding:0;
+  margin:0;
+}
+
