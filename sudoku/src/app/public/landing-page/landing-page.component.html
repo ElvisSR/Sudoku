@@ -1,32 +1,43 @@
 <div class="container-fluid p-0 m-0">
-  <div class="row">
-    <div class="col-6">
-      <h2>Foto</h2>
+  <div class="row contenido mb-5">
+    <div class="col-sm-6 foto">
+      <div class="col d-flex justify-content-center">
+        <table>
+          <tr *ngFor="let fila of tablero; let i = index">
+            <td *ngFor="let celda of fila; let j = index"
+              class="celda"
+              [ngClass]="{
+              'linea_bottom': i == 2 || i == 5 || i == 8,
+              'linea_right': j == 2 || j == 5 || j == 8,
+              'linea_left': j == 0,
+              'linea_top': i == 0,
+              'sombra': celda != 0,
+              'nada': celda == 0
+            }">
+              {{celda}}
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div class="col-6">
-      <h2>Título</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, omnis error. Nulla placeat ad aut tenetur consequatur tempore</p>
-      <button class="button">Únete a la comunidad</button>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-2">
-      <p>1</p>
-    </div>
-    <div class="col-2">
-      <p>2</p>
-    </div>
-    <div class="col-2">
-      <p>3</p>
-    </div>
-    <div class="col-2">
-      <p>4</p>
-    </div>
-    <div class="col-2">
-      <p>5</p>
-    </div>
-    <div class="col-2">
-      <p>6</p>
+    <div class="col-sm-6 unete">
+      <div class="row beneficios">
+        <div class="col-sm-3">
+          <p>beneficio1</p>
+        </div>
+        <div class="col-sm-3">
+          <p>beneficio2</p>
+        </div>
+      </div>
+      <div class="row beneficios">
+        <div class="col-sm-3">
+          <p>beneficio3</p>
+        </div>
+        <div class="col-sm-3">
+          <p>beneficio4</p>
+        </div>
+      </div>
+      <button id="registro" type="button" class="btn comunidad text-white">Únete a la comunidad</button>
     </div>
   </div>
 </div>

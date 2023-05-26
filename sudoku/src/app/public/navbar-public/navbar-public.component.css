@@ -1,11 +1,28 @@
-#logotipo
-{
-    filter:brightness();
-    mix-blend-mode:multiply;
-    width:5vw;
-}
 .navbar
 {
-  background-image: linear-gradient(to right, #212a6a, #6a7af9);
+  background-image: linear-gradient(to right, #caceea, #b3bbfa);
+  font-family:sans-serif;
 }
+.navbar-brand{
+  margin-left: 10%;
+  color:#393c6d;
+  font-size: 25px;
+  font-weight: bold;
+}
+.nav-link{
+  color: #FFFFFF;
+}
+.btn{
+  font-size:18px;
+}
+#inicio{
+  background-color: #393c6d;
+  color:white;
+  border-radius: 25px;
+}
+#inicio:hover{
+  background-color: #626fcf;
+}
+
+
 

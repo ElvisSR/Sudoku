@@ -1,9 +1,87 @@
 .container-fluid{
-  background-image: linear-gradient(to right, #212a6a, #6a7af9);
+  background-image: linear-gradient(to right, #caceea, #b3bbfa);
   min-height: calc(100vh - 56px);
+  font-family:sans-serif;
 }
 .row,col{
   padding:0;
   margin:0;
 }
-
+.contenido{
+  height: 60vh;
+}
+.unete,.foto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.color-unete{
+  color:#393c6d;
+}
+#registro{
+  background-color:#626fcf;
+  color:white;
+  border-radius: 25px;
+}
+#registro:hover{
+  background-color: #626fcf;
+}
+.comunidad{
+  font-size: 25px;
+}
+.beneficios{
+  display: flex;
+  justify-content: space-between;
+}
+/* Sudoku estilos */
+table{
+  text-align: center;
+  background-color: white;
+}
+td{
+  background-color: #f3f4f5;
+  border: 1px solid #393c6d;
+  width:30px;
+  height:30px;
+  font-size:30px;
+  font-family:sans-serif;
+  color:#000000;
+}
+.linea_right{
+  border-right: 2px solid #393c6d;
+}
+.linea_bottom{
+  border-bottom: 2px solid #393c6d;
+}
+.linea_top{
+  border-top: 2px solid #393c6d;
+}
+.linea_left{
+  border-left: 2px solid #393c6d;
+}
+.sombra{
+  background-color: #a1c0dc;
+}
+.nada{
+  visibility: hidden;
+}
+@media screen and (min-width:1000px){
+  td{
+      width:50px;
+      height:50px;
+  }
+}
+@media screen and (max-width:400px){
+  td{
+      width:33px;
+      height:33px;
+  }
+}
+@media screen and (max-width:300px){
+  td{
+      width:26px;
+      height:26px;
+      font-size: 20px;
+  }
+}
