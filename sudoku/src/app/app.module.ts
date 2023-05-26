@@ -7,13 +7,19 @@ import { LandingPageComponent } from './public/landing-page/landing-page.compone
 import { FormsModule } from '@angular/forms';
 import { NavbarPublicComponent } from './public/navbar-public/navbar-public.component';
 import { SudokuComponent } from './sudoku/sudoku/sudoku.component';
+import { MainSudokuComponent } from './registered/main-sudoku/main-sudoku.component';
+import { RegistrationFormComponent } from './public/registration-form/registration-form.component';
+import { LoginComponent } from './public/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     NavbarPublicComponent,
-    SudokuComponent
+    SudokuComponent,
+    MainSudokuComponent,
+    RegistrationFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
