@@ -1,16 +1,13 @@
 export class Sudoku
 {
-    tablero : number[][];
-    
+    tableroPortada : number[][];
+    tablero : number[][] = [];
+    numeros : number [] =[1,2,3,4,5,6,7,8,9]
+
     constructor(){
-        // this.tablero = new Array (9);
-        // for (let fila = 0; fila < 9; fila++) {
-        //     this.tablero[fila] = new Array(9);
-        //     for (let columna = 0; columna < 9; columna++){
-        //         this.tablero[fila][columna]=0;
-        //     }
-        // }
-        this.tablero =[
+        this.limpiarSudoku();
+
+        this.tableroPortada =[
             [0,0,6,8,0,0,0,9,4],
             [0,2,0,0,6,0,7,0,0],
             [7,0,0,4,0,2,0,0,0],
@@ -23,7 +20,45 @@ export class Sudoku
         ]
         
     }
+    //Generar sudoku
+    public generarSudoku(dificultad:number){
+        this.limpiarSudoku();
+        this.generarCuadrante(3);
+        this.generarCuadrante(6);
+        this.generarCuadrante(9);
+        this.resolver();
+        this.generarVacios(dificultad);
 
+    }
+
+    generarCuadrante(num:number){
+        for (let fila = num-3; fila < num; fila++) {
+            for (let columna = num-3; columna < num; columna++) {
+                let numero = Math.floor(Math.random() * 9) + 1;
+                if(this.noBloque(fila,columna,numero)){
+                    this.tablero[fila][columna] = numero;
+                }
+                else{
+                    columna --;
+                }
+
+            }
+        }
+    }
+
+    generarVacios(dificultad:number){
+        for (let fila = 0; fila < this.tablero.length; fila++) {
+            for (let columna = 0; columna < this.tablero[fila].length; columna++) {
+                let ceros = Math.random()<dificultad;
+                if(ceros){
+                    this.tablero[fila][columna]=0
+                }
+            }
+            
+        }
+    }
+
+    // Funciones de resolución del sudoku
     public resolver():boolean{
         for (let fila = 0; fila < this.tablero.length; fila++) {
             for (let columna = 0; columna < this.tablero[fila].length; columna++) {
@@ -79,25 +114,36 @@ export class Sudoku
     }
 
     public bloque(indice:number):number{
-        if(indice<=2){
-            return 3;
-        }
-        else if(indice<=5){
+       switch (true) {
+        case indice <= 2:
+            return 3
+        case indice <= 5:
             return 6;
-        }
-        else{
+        default:
             return 9;
-        }
-    //    switch (true) {
-    //     case indice <= 2:
-    //         return 3
-    //     case indice <= 5:
-    //         return 6;
-    //     default:
-    //         return 9;
-    //    }
+       }
     }
+
+    //Limpiar
+    public limpiarSudoku(){
+        for (let fila = 0; fila < 9; fila++) {
+            this.tablero[fila] = new Array(9);
+            for (let columna = 0; columna < 9; columna++){
+                this.tablero[fila][columna]=0;
+            }
+        }
+    }
+
+    //Mostrar
+    public mostrar_tableroPortada(){
+        return this.tableroPortada;
+    }
+
     public mostrar_tablero(){
         return this.tablero;
+    }
+
+    public mostrar_numeros(){
+        return this.numeros;
     }
 }

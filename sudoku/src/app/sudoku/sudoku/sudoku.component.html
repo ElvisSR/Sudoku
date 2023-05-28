@@ -1,3 +1,4 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.0/umd/popper.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <div class="container-fluid p-0 mb-5">
     <div class="row">
       <div class="col">
@@ -7,11 +8,17 @@
     <div class="row">
       <div class="col">
         <button (click)="resolver();">resolver</button>
+        <button (click)="generarSudoku();">nueva partida</button>
+        <select id="mySelect" aria-label="Default select example">
+          <option selected value="facil" >Facil</option>
+          <option value="medio">Medio</option>
+          <option value="dificil">Difícil</option>
+        </select>
       </div>
     </div>
     <div class="row">
       <div class="col d-flex justify-content-center">
-        <table>
+        <table class="sudoku">
           <tr *ngFor="let fila of tablero; let i = index">
             <td *ngFor="let celda of fila; let j = index"
               class="celda"
@@ -21,12 +28,17 @@
               'linea_left': j == 0,
               'linea_top': i == 0,
               'sombra': celda != 0,
-              'nada': celda == 0
-            }">
+              'nada': celda == 0,
+            }"(click)="ponerNumero(i, j)">
               {{celda}}
             </td>
           </tr>
         </table>
+        <div class="numeros">
+          <div *ngFor="let numero of numeros" class="celda text-center" (click)="seleccionarNumero(numero)">
+            {{numero}}
+          </div>
+        </div>
       </div>
     </div>
   </div>

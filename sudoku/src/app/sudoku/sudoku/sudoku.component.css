@@ -9,10 +9,21 @@
     margin:0;
     padding:0;
 }
-table{
+.celda, .numeros .celda{
+    cursor: pointer;
+}
+.sudoku{
     text-align: center;
 }
-td{
+.numeros{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 40px;
+    grid-gap: 10px;
+    justify-items: center;
+    align-items: center; 
+}
+.celda{
     background-color: #f3f4f5;
     border: 1px solid #363f54;
     width:40px;
@@ -35,9 +46,11 @@ td{
 }
 .sombra{
     background-color: #baccdd;
+    pointer-events: none;
 }
 .nada{
-    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
 }
 
 /* @media screen and (min-width:1300px){

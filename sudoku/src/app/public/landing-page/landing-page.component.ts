@@ -13,7 +13,7 @@ export class LandingPageComponent {
   tablero:number[][];
 
   constructor(private router:Router){
-    this.tablero = this.sudo.mostrar_tablero();
+    this.tablero = this.sudo.mostrar_tableroPortada();
   }
 
   goToRegistration(){
