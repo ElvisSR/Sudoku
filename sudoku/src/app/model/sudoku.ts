@@ -86,6 +86,9 @@ export class Sudoku
                 }
             }
         }
+        /*Hago una copia profunda pasando a JSON this.tablero y luego crear un objeto para tener una copia independiente, 
+        ya que si simplemente igualamos con this.tablero, estaremos apuntando al mismo bloque de memoria y cualquier
+        modificación en this.tablero, lo reflejaremos en this.tableroSolucionado y no queremos eso*/
         this.tableroSolucionado = JSON.parse(JSON.stringify(this.tablero));
         return true;
     }
