@@ -31,7 +31,7 @@ export class Cronometro {
     
           this.tiempoActualizado.emit(this.tiempo);//Envío cada segundo el valor de this.tiempo
 
-          //Esta sintaxis nos va a permitir crear una funcionde arrow
+          //Esta sintaxis nos va a permitir crear una funcion de arrow
           //Que nos permite actuar en un contexto actualizado respecto a this.iniciar
           //Y evitarnos posibles referencias a variables pasadas
           //Funcion que llama a this.iniciar cada segundo
