@@ -8,7 +8,7 @@
     <div class="col">
       <button (click)="resolver();">resolver</button>
       <button (click)="generarSudoku();">nueva partida</button>
-      <select id="mySelect" aria-label="Default select example">
+      <select id="miDificultad" aria-label="Default select example">
         <option selected value="facil" >Facil</option>
         <option value="medio">Medio</option>
         <option value="dificil">Difícil</option>
@@ -37,6 +37,9 @@
         <div *ngFor="let numero of numeros" class="celda text-center" (click)="seleccionarNumero(numero)">
           {{numero}}
         </div>
+      </div>
+      <div class="tiempo">
+        {{tiempo}}
       </div>
     </div>
   </div>
