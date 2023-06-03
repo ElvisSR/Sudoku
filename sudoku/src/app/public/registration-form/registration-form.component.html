@@ -1,1 +1,40 @@
-<h1>Aquí irá el formulario de registro</h1>
+<div class="formulario">
+    <div *ngIf="respuesta">
+        <p>{{mensaje}}</p>
+    </div>
+    <div *ngIf="error">
+        <p>error</p>
+    </div>
+    <form #nombre_apodo=ngForm [formGroup]="formulario" (ngSubmit)="enviar()">
+        <div class="form-group">
+            <label>Nombre de usuario:<input type="text" class="form-control" formControlName="nick"></label>  
+            <div *ngIf="formulario.get('nick')?.touched || formulario.get('nick')?.dirty">
+                <div class="error" *ngIf="formulario.get('nick')?.errors?.['required']">El nombre es obligatorio</div>
+                <div class="error" *ngIf="formulario.get('nick')?.errors?.['minlength']">El nombre debe tener al menos 4 caracteres</div>
+                <div class="error" *ngIf="formulario.get('nick')?.errors?.['maxlength']">El nombre debe tener como máximo 20 caracteres</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Correo:<input type="text" class="form-control" formControlName="email"></label>  
+            <div *ngIf="formulario.get('email')?.touched || formulario.get('nombre')?.dirty">
+                <div class="error" *ngIf="formulario.get('email')?.errors?.['required']">El email es obligatorio</div>
+                <div class="error" *ngIf="formulario.get('email')?.errors?.['email']">El email es incorrecto</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Contraseña:<input type="password" class="form-control" formControlName="pass1" ></label>
+            <div *ngIf="formulario.get('pass1')?.touched || formulario.get('pass1')?.dirty">
+                <div class="error" *ngIf="formulario.get('pass1')?.errors?.['required']">La contraseña es obligatoria</div>
+                <div class="error" *ngIf="formulario.get('pass1')?.errors?.['minlength']">La contraseña debe tener al menos 5 caracteres</div>
+                <div class="error" *ngIf="formulario.get('pass1')?.errors?.['maxlength']">La contraseña debe tener como máximo 20 caracteres</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Contraseña:<input type="password" class="form-control" formControlName="pass2"></label> 
+            <div *ngIf="formulario.get('pass2')?.touched || formulario.get('pass2')?.dirty">
+                <div class="error" *ngIf="formulario.get('pass2')?.errors?.['passError']">Las contraseñas no coinciden</div>
+            </div>
+        </div>
+        <button class="btn btn-primary">Enviar</button>  
+    </form>
+</div>
