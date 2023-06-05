@@ -1,5 +1,24 @@
-<h1>Aquí irá el formulario para iniciar sesión</h1>
-<div *ngIf="exito">
-    <p>Usuario creado correctamente</p>
+<div class="formulario">
+    <div *ngIf="exito"class="">
+        <p>Usuario creado correctamente</p>
+    </div>
+    <form #nombre_apodo=ngForm [formGroup]="formularioLogin" (ngSubmit)="enviar()">
+        <div class="form-group">
+            <label>Nombre de usuario:<input type="text" class="form-control" formControlName="nick"></label>
+            <div *ngIf="formularioLogin.get('nick')?.touched || formularioLogin.get('nick')?.dirty">
+                <div class="error" *ngIf="formularioLogin.get('nick')?.errors?.['required']">El nombre es obligatorio</div>
+                <div class="error" *ngIf="formularioLogin.get('nick')?.errors?.['minlength']">El nombre debe tener al menos 4 caracteres</div>
+                <div class="error" *ngIf="formularioLogin.get('nick')?.errors?.['maxlength']">El nombre debe tener como máximo 20 caracteres</div>
+            </div>  
+        </div>
+        <div class="form-group">
+            <label>Contraseña:<input type="password" class="form-control" formControlName="pass1" ></label>
+            <div *ngIf="formularioLogin.get('pass1')?.touched || formularioLogin.get('pass1')?.dirty">
+                <div class="error" *ngIf="formularioLogin.get('pass1')?.errors?.['required']">La contraseña es obligatoria</div>
+                <div class="error" *ngIf="formularioLogin.get('pass1')?.errors?.['minlength']">La contraseña debe tener al menos 5 caracteres</div>
+                <div class="error" *ngIf="formularioLogin.get('pass1')?.errors?.['maxlength']">La contraseña debe tener como máximo 20 caracteres</div>
+            </div>
+        </div>
+        <button class="btn btn-primary">Enviar</button>  
+    </form>
 </div>
-<button class="btn btn-primary" (click)="goToMain()">Log in</button>

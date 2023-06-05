@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Cronometro } from 'src/app/model/cronometro';
+import { Sudoku } from 'src/app/model/sudoku';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-main-sudoku',
@@ -6,5 +10,102 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-sudoku.component.css']
 })
 export class MainSudokuComponent {
+  
+  crono:Cronometro = new Cronometro();
+  sudo:Sudoku = new Sudoku();
+  tiempo:String="";
+  tablero:number[][]=[];
+  tableroSolucionado:number[][]=[];
+  opcionSeleccionada: string =""
+  numeros:number[]=[]
+  numero:number = 0
+  esperando:number=0;
+  nombre:string="";
+  fallos:number=0;
+  maximosFallos:number=4;//Al cuarto fallo se termina la partida
 
+  constructor(private cookie:CookieService){
+    this.numeros=this.sudo.mostrar_numeros();//Mostrar de primeras los números
+    let token = this.cookie.get('token');
+    let decodeToken = jwt_decode(token) as { nick: string };
+    this.nombre = decodeToken.nick;
+    
+  }
+
+  resolver(){
+    this.sudo.resolver();//Nos devuelve el sudoku resuelto
+  }
+
+  async generarSudoku(){
+    this.fallos=0;
+    this.esperando=1;
+    await this.crono.esperaDe4Segundos();//Mientras se ejecute la cuanto a 4 no se sigue con lo demás
+    this.esperando=2;
+    
+    let select = document.getElementById('miDificultad') as HTMLSelectElement;
+    let dificultad = select.value;//Sacamos el valor seleccionado del select
+
+    switch (dificultad) {
+      //Dependiendo de la dificultad, genero un sudoku pasando el número oportuno, guardo el tablero solucionado
+      //Mostramos el tablero en el que jugará el cliente
+      case "facil":
+        this.sudo.generarSudoku(0.01);
+        this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
+        this.tablero = this.sudo.mostrar_tablero();
+        break;
+      case "medio":
+        this.sudo.generarSudoku(0.6);
+        this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
+        break;
+      case "dificil":
+        this.sudo.generarSudoku(0.7);
+        this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
+        break;
+      default:
+        break;
+    }
+
+    //Iniciamos crono
+    this.crono.reset();
+    this.crono.iniciar();
+    //Recogemos el tiempo actualizado suscrbiéndonos al emit desde Cronometro y se mantiene actualizado
+    this.crono.tiempoActualizado.subscribe((tiempo: string) => {
+    this.tiempo = tiempo;});
+  }
+
+  //Guardamos la selección
+  seleccionarNumero(numero: number) {
+    this.numero = numero;
+  }
+
+  //Si la casilla está vacía, puedes poner números
+  ponerNumero(fila: number, columna: number) {
+    //Si el número en esa posición, es el mismo que en el de la solución
+    if(this.tableroSolucionado[fila][columna]==this.numero){
+      this.tablero[fila][columna] = this.numero;
+      console.log(this.tablero);
+      console.log(this.tableroSolucionado);
+      if(this.sonIguales(this.tableroSolucionado,this.tablero)){
+        //Utilizo setTimeout para asgeurarme de que el crono se detendrá
+        //Si llamo directamente a this.crono.detener() no se ejecuta
+        setTimeout(() => {
+          this.crono.detener();
+        });
+      }
+    }
+    else{
+      this.fallos++;
+      if(this.fallos == this.maximosFallos){
+        alert("Has alcanzado el máximo de fallos");
+        this.resolver();
+        this.crono.detener();
+      }
+    }
+  }
+
+  sonIguales(matriz1: number[][], matriz2: number[][]):boolean{
+    return JSON.stringify(matriz1) === JSON.stringify(matriz2);
+  }
 }
+
+

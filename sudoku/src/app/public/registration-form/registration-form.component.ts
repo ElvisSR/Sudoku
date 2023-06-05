@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Route } from '@angular/router';
-import { hashSync, compareSync } from 'bcryptjs';
+import { hashSync} from 'bcryptjs';
 import { Usuario } from 'src/app/model/usuario';
 import { CrudService } from 'src/app/services/crud.service';
 import { Router } from '@angular/router';
+import * as sha from 'sha.js';
 
 @Component({
   selector: 'app-registration-form',
@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration-form.component.css']
 })
 export class RegistrationFormComponent {
-  formulario:FormGroup;
+  formularioRegistro:FormGroup;
   respuesta:boolean=false;
   error:boolean=false;
   mensaje:string="";
 
   constructor(public formBuilder:FormBuilder, public crud:CrudService, private router:Router){
-    this.formulario = this.formBuilder.group({
+    this.formularioRegistro = this.formBuilder.group({
       nick: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
       pass1: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
@@ -38,9 +38,9 @@ export class RegistrationFormComponent {
   }
 
   enviar(){
-    if (this.formulario.valid) {
-      let { nick, email, pass1} = this.formulario.value;// Recupero 3 de los 4 inputs del formulario
-      let pass = hashSync(pass1, 10);// Utilizo un hasheo bastante común llamado bcrypt con un factor de coste de 10
+    if (this.formularioRegistro.valid) {
+      let { nick, email, pass1} = this.formularioRegistro.value;// Recupero 3 de los 4 inputs del formulario
+      let pass = sha('sha256').update(pass1).digest('hex');
       let nuevoUsuario = new Usuario(nick, email, pass);
 
       this.crud.agregarUsuario(nuevoUsuario).subscribe(

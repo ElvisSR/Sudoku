@@ -16,10 +16,17 @@ export class CrudService {
 
 
   agregarUsuario(usuario:Usuario): Observable<any> {
-    return this.peticion.post(this.url + "?agregar=",usuario ).pipe(
+    return this.peticion.post(this.url + "?agregar",usuario ).pipe(
       catchError(error => throwError(() => new Error('Ha ocurrido un error.')))
     );
   }
 
+  autenticarUsuario(nick:string,pass:string): Observable<any>{
+    let datos = { nick: nick, pass: pass };
+    console.log(datos);
+    return this.peticion.post(this.url + "?autenticar",datos ).pipe(
+      catchError(error => throwError(() => new Error('Ha ocurrido un error.')))
+    );
+  }
   
 }
