@@ -29,4 +29,20 @@ export class CrudService {
     );
   }
   
+  informacionUsuario(nick:string):Observable<any>{
+    let datos = {nick:nick};
+
+    return this.peticion.post(this.url + "?informacion",datos ).pipe(
+      catchError(error => throwError(() => new Error('Ha ocurrido un error.')))
+    );
+  }
+  
+  insertarHistorial(nick:string,resultado:string,dificultad:string,fallos:string,tiempo:string): Observable<any>{
+    let datos = { nick: nick, resultado: resultado, fallos: fallos, dificultad:dificultad, tiempo:tiempo};
+    console.log(datos);
+    return this.peticion.post(this.url + "?insertarHistorial",datos ).pipe(
+      catchError(error => throwError(() => new Error('Ha ocurrido un error.')))
+    );
+  }
+
 }

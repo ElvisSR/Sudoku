@@ -52,10 +52,6 @@ export class RegistrationFormComponent {
           if(response=="existe"){
             this.mensaje="el usuario ya existe";
           }
-        },
-        (error) => {
-          this.error=true;
-          this.mensaje="Error";
         }
       );
     }

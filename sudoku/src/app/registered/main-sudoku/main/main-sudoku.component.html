@@ -7,9 +7,10 @@
     </div>
     <div class="row">
       <div class="col">
+        <button (click)="goToLogin();">cerrar sesión</button>
         <button *ngIf="esperando==2" (click)="resolver();">resolver</button>
         <button (click)="generarSudoku();">nueva partida</button>
-        <button>historial</button>
+        <button (click)="goToPerfil();">perfil</button>
         <select id="miDificultad" aria-label="Default select example">
           <option selected value="facil" >Facil</option>
           <option value="medio">Medio</option>

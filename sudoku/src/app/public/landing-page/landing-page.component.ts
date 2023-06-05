@@ -19,4 +19,8 @@ export class LandingPageComponent {
   goToRegistration(){
     this.router.navigate(["registration"]);
   }
+
+  goToMainGuest(){
+    this.router.navigate(["/guest"]);
+  }
 }

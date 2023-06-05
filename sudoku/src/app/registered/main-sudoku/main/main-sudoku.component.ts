@@ -3,6 +3,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Cronometro } from 'src/app/model/cronometro';
 import { Sudoku } from 'src/app/model/sudoku';
 import jwt_decode from 'jwt-decode';
+import { CrudService } from 'src/app/services/crud.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-sudoku',
@@ -13,7 +15,7 @@ export class MainSudokuComponent {
   
   crono:Cronometro = new Cronometro();
   sudo:Sudoku = new Sudoku();
-  tiempo:String="";
+  tiempo:string="";
   tablero:number[][]=[];
   tableroSolucionado:number[][]=[];
   opcionSeleccionada: string =""
@@ -24,12 +26,13 @@ export class MainSudokuComponent {
   fallos:number=0;
   maximosFallos:number=4;//Al cuarto fallo se termina la partida
 
-  constructor(private cookie:CookieService){
+  constructor(private cookie:CookieService, private crud:CrudService, private router:Router){
     this.numeros=this.sudo.mostrar_numeros();//Mostrar de primeras los números
+
+    //Problemas  ala hora de decodificar el jwt token en el php, por eso l odecodifico en el front-end aunque no sea recomendable
     let token = this.cookie.get('token');
     let decodeToken = jwt_decode(token) as { nick: string };
     this.nombre = decodeToken.nick;
-    
   }
 
   resolver(){
@@ -91,6 +94,15 @@ export class MainSudokuComponent {
         setTimeout(() => {
           this.crono.detener();
         });
+        let dificultad = (document.getElementById("miDificultad") as HTMLSelectElement).value;
+        let fallos = this.fallos.toString();
+        this.crud.insertarHistorial(this.nombre,"victoria",dificultad,fallos,this.tiempo).subscribe(
+          (response) => {
+            if(response){
+              console.log(response);
+            }
+          }
+        );
       }
     }
     else{
@@ -105,6 +117,15 @@ export class MainSudokuComponent {
 
   sonIguales(matriz1: number[][], matriz2: number[][]):boolean{
     return JSON.stringify(matriz1) === JSON.stringify(matriz2);
+  }
+
+  goToPerfil(){
+    this.router.navigate(['perfil'], { queryParams: { param: this.nombre } });
+  }
+
+  goToLogin(){
+    this.cookie.delete('token');
+    this.router.navigate(["/"]);
   }
 }
 

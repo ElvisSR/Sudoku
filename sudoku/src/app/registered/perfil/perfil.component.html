@@ -1,0 +1,19 @@
+<button (click)="goToMain();">Ir al menú</button>
+<table>
+    <thead class="text-center">
+        <tr>
+        <th>Resultado</th>
+        <th>Dificultad</th>
+        <th>Fallos</th>
+        <th>Tiempo</th>
+        <th>Fecha</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let dato of historial">
+    <td>{{ dato.resultado }}</td>
+    <td>{{ dato.dificultad }}</td>
+    <td>{{ dato.fallos }}</td>
+    <td>{{ dato.tiempo }}</td>
+    <td>{{ dato.fecha }}</td>
+    </tr>
+</table>
