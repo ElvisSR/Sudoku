@@ -1,74 +1,65 @@
 .container-fluid{
   background-image: linear-gradient(to right, #caceea, #b3bbfa);
-  min-height: calc(100vh - 56px);
-  font-family:sans-serif;
+  min-height: calc(100vh - 71px);
 }
-.row,col{
+
+/* Para quitar el scroll */
+.row,.col{
   padding:0;
   margin:0;
 }
-.contenido{
-  height: 60vh;
+.regla{
+  color: #000000;
 }
-.unete,.foto {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.btnPublic:hover{
+  background-color: #393c6d;
 }
-.color-unete{
-  color:#393c6d;
-}
-#registro{
+.btnPublic{
   background-color:#626fcf;
-  color:white;
-  border-radius: 25px;
-}
-#registro:hover{
-  background-color: #626fcf;
-}
-.comunidad{
+  color:#FFFF;
+  border:2px solid #000000;
   font-size: 25px;
 }
-.beneficios{
-  display: flex;
-  justify-content: space-between;
+i{
+  margin-right: 10px;
 }
+
 /* Sudoku estilos */
+
 table{
   text-align: center;
   background-color: white;
 }
 td{
-  background-color: #f3f4f5;
-  border: 1px solid #393c6d;
-  width:30px;
-  height:30px;
+  border: 1px solid #000000;
+  width:50px;
+  height:40px;
   font-size:30px;
-  font-family:sans-serif;
   color:#000000;
 }
 .linea_right{
-  border-right: 2px solid #393c6d;
+  border-right: 2px solid #000000;
 }
 .linea_bottom{
-  border-bottom: 2px solid #393c6d;
+  border-bottom: 2px solid #000000;
 }
 .linea_top{
-  border-top: 2px solid #393c6d;
+  border-top: 2px solid #000000;
 }
 .linea_left{
-  border-left: 2px solid #393c6d;
+  border-left: 2px solid #000000;
 }
 .sombra{
-  background-color: #a1c0dc;
+  background-color: #afd7ff;
 }
 .nada{
+  opacity: 0;
   visibility: hidden;
 }
-@media screen and (min-width:1000px){
+
+@media screen and (min-width:1900px){
   td{
-      width:50px;
+      width:70px;
       height:50px;
   }
 }

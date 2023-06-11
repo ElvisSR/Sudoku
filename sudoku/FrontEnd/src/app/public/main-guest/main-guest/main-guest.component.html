@@ -1,42 +1,45 @@
-
-<div class="container-fluid p-0 mb-5">
-    <div class="row">
-      <div class="col">
-        <h1 class="titulo text-center">Sudoku</h1>
-      </div>
+<div class="container-fluid p-0">
+  <div class="row p-1 justify-content-center">
+    <div class="col-auto">
+      <button class="btn btnVolver" (click)="goToLanding();"><i class="bi bi-arrow-return-left"></i>Volver</button>
     </div>
-    <div class="row">
-      <div class="col">
-        <button (click)="resolver();">resolver</button>
-        <button (click)="generarSudoku();">nueva partida</button>
-      </div>
+    <div class="col-auto">
+      <h1 class="titulo">A jugar!</h1>
     </div>
-    <div class="row">
-      <div *ngIf="esperando==1">
-        <p>Generando tablero...</p>
-      </div>
-      <div *ngIf="esperando==2" class="col d-flex justify-content-center">
-        <table class="sudoku">
-          <tr *ngFor="let fila of tablero; let i = index">
-            <td *ngFor="let celda of fila; let j = index"
-              class="celda"
-              [ngClass]="{
-              'linea_bottom': i == 2 || i == 5 || i == 8,
-              'linea_right': j == 2 || j == 5 || j == 8,
-              'linea_left': j == 0,
-              'linea_top': i == 0,
-              'sombra': celda != 0,
-              'nada': celda == 0,
-            }"(click)="ponerNumero(i, j)">
-              {{celda}}
-            </td>
-          </tr>
-        </table>
-        <div class="numeros">
-          <div *ngFor="let numero of numeros" class="celda text-center" (click)="seleccionarNumero(numero)">
-            {{numero}}
-          </div>
+  </div>
+  <div class="row p-1">
+    <div class="col d-flex justify-content-between">
+      <button class="btn btnGuest" (click)="generarSudoku();">Nueva partida</button>
+      <span *ngIf="esperando==2" class="error">Fallos: {{fallos}}</span>
+      <button *ngIf="esperando==2" class=" btn btnGuest" (click)="resolver();">resolver</button>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col d-flex justify-content-center" *ngIf="esperando==1">
+      <p>Generando tablero...</p>
+    </div>
+    <div *ngIf="esperando==2" class="col d-flex justify-content-center">
+      <table class="sudoku">
+        <tr *ngFor="let fila of tablero; let i = index">
+          <td *ngFor="let celda of fila; let j = index"
+            class="celda"
+            [ngClass]="{
+            'linea_bottom': i == 2 || i == 5 || i == 8,
+            'linea_right': j == 2 || j == 5 || j == 8,
+            'linea_left': j == 0,
+            'linea_top': i == 0,
+            'sombra': celda != 0,
+            'nada': celda == 0,
+          }"(click)="ponerNumero(i, j)">
+            {{celda}}
+          </td>
+        </tr>
+      </table>
+      <div *ngIf="esperando==2" class="opciones">
+        <div *ngFor="let numero of numeros" class="opcion text-center" (click)="seleccionarNumero(numero)">
+          {{numero}}
         </div>
       </div>
     </div>
   </div>
+</div>

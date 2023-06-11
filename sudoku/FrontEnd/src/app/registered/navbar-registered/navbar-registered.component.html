@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mx-4">{{nombre}}</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav d-flex align-items-stretch">
+          <button class="btn mx-4" (click)="goToLanding();"><i class="bi bi-box-arrow-left"></i>Cerrar sesión</button>
+          <button class="btn mx-4" (click)="goToPerfil();"><i class="bi bi-person-fill"></i>Historial</button>
+        </div>
+      </div>
+    </div>
+</nav>
+  

@@ -1,55 +1,52 @@
-<div class="container-fluid p-0 mb-5">
-    <div class="row">
-      <div class="col">
-        <h1 class="titulo text-center">Sudoku</h1>
-        <h2></h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button (click)="goToLogin();">cerrar sesión</button>
-        <button *ngIf="esperando==2" (click)="resolver();">resolver</button>
-        <button (click)="generarSudoku();">nueva partida</button>
-        <button (click)="goToPerfil();">perfil</button>
-        <select id="miDificultad" aria-label="Default select example">
-          <option selected value="facil" >Facil</option>
+<app-navbar-registered></app-navbar-registered>
+<div class="container-fluid p-0 ">
+  <div class="row d-flex justify-content-center">
+    <div class="col-auto">
+      <div class="d-flex align-items-center">
+        <button class="btn" *ngIf="esperando==2" (click)="resolver();">resolver</button>
+        <button class="btn" (click)="generarSudoku();">Nueva</button>
+        <select class="form-select" id="miDificultad" aria-label="Default select example">
+          <option selected value="facil" >Fácil</option>
           <option value="medio">Medio</option>
           <option value="dificil">Difícil</option>
         </select>
       </div>
     </div>
-    <div class="row">
-      <div *ngIf="esperando==1">
-        <p>Generando tablero...</p>
-      </div>
-      <div *ngIf="esperando==2" class="col d-flex justify-content-center">
-        <table class="sudoku">
-          <tr *ngFor="let fila of tablero; let i = index">
-            <td *ngFor="let celda of fila; let j = index"
-              class="celda"
-              [ngClass]="{
-              'linea_bottom': i == 2 || i == 5 || i == 8,
-              'linea_right': j == 2 || j == 5 || j == 8,
-              'linea_left': j == 0,
-              'linea_top': i == 0,
-              'sombra': celda != 0,
-              'nada': celda == 0,
-            }"(click)="ponerNumero(i, j)">
-              {{celda}}
-            </td>
-          </tr>
-        </table>
-        <div class="fallos">
-          Número de fallos: {{fallos}}/{{maximosFallos}}
-        </div>
-        <div class="numeros">
-          <div *ngFor="let numero of numeros" class="celda text-center" (click)="seleccionarNumero(numero)">
-            {{numero}}
-          </div>
-        </div>
-        <div class="tiempo">
-          {{tiempo}}
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-sm-3 d-flex justify-content-center">
+      <span *ngIf="scoreFallos==2" class="error">Fallos: {{fallos}}/{{maximosFallos}}</span>
+      <span *ngIf="derrota==1" class="error">Perdiste</span>
+    </div>
+    <div *ngIf="esperando==1" class="col d-flex justify-content-center">
+      <p>Generando tablero...</p>
+    </div>
+    <div *ngIf="esperando==2" class="col d-flex justify-content-center">
+      <table class="sudoku">
+        <tr *ngFor="let fila of tablero; let i = index">
+          <td *ngFor="let celda of fila; let j = index"
+            class="celda"
+            [ngClass]="{
+            'linea_bottom': i == 2 || i == 5 || i == 8,
+            'linea_right': j == 2 || j == 5 || j == 8,
+            'linea_left': j == 0,
+            'linea_top': i == 0,
+            'sombra': celda != 0,
+            'nada': celda == 0,
+          }"(click)="ponerNumero(i, j)">
+            {{celda}}
+          </td>
+        </tr>
+      </table>
+      <div *ngIf="esperando==2" class="opciones">
+        <div *ngFor="let numero of numeros" class="opcion text-center" (click)="seleccionarNumero(numero)">
+          {{numero}}
         </div>
       </div>
     </div>
+    <div class="col-12 col-sm-3 d-flex justify-content-center">
+      <span class="tiempo">{{tiempo}}</span>
+    </div>
   </div>
+</div>
+

@@ -1,23 +1,21 @@
 .navbar{
-  background-image: linear-gradient(to right, #98a3f7, #caceea);
-}
+    background-image: linear-gradient(to right, #98a3f7, #caceea);
+  }
 .navbar-brand{
   margin-left: 10%;
   color:#000000;
   font-size: 30px;
   font-weight: bold;
 }
-.inicio{
+.btn{
   background-color: #626fcf;
   color:#FFFFFF;
   border: 2px solid #000000;
   font-size:15px;
 }
-.inicio:hover{
+.btn:hover{
   background-color: #393c6d;
 }
 i{
   margin-right:10px;
 }
-
-

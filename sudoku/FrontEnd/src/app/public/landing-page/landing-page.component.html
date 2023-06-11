@@ -1,12 +1,11 @@
 <app-navbar-public></app-navbar-public>
 <div class="container-fluid p-0 m-0">
-  <div class="row contenido mb-5">
-    <div class="col-sm-6 foto">
-      <div class="col d-flex justify-content-center">
+  <div class="row">
+    <div class="mt-4 col-12 col-sm-6 tablero">
+      <div class="col d-flex justify-content-center align-items-center">
         <table>
           <tr *ngFor="let fila of tablero; let i = index">
             <td *ngFor="let celda of fila; let j = index"
-              class="celda"
               [ngClass]="{
               'linea_bottom': i == 2 || i == 5 || i == 8,
               'linea_right': j == 2 || j == 5 || j == 8,
@@ -21,25 +20,40 @@
         </table>
       </div>
     </div>
-    <div class="col-sm-6 unete">
-      <div class="row beneficios">
-        <div class="col-sm-3">
-          <p>beneficio1</p>
+    <div class="mt-5 col-12 col-sm-6">
+      <div class="reglas">
+        <div class="row">
+          <div class="col">
+            <h2 class="text-center text-decoration-underline">Reglas</h2>
+          </div>
         </div>
-        <div class="col-sm-3">
-          <p>beneficio2</p>
+        <div class="row text-center">
+          <div class="regla col-6">
+            <h3>Opciones</h3>
+            <p>Tienes números del 1 al 9</p>
+          </div>
+          <div class="regla col-6">
+            <h3>Filas</h3>
+            <p>Los números no se pueden repetir en su fila</p>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="regla col-6">
+            <h3>Columnas</h3>
+            <p>Los números no se pueden repetir en su columna</p>
+          </div>
+          <div class="regla col-6">
+            <h3>Cuadrante</h3>
+            <p>Los números no se pueden repetir en su cuadrante</p>
+          </div>
         </div>
       </div>
-      <div class="row beneficios">
-        <div class="col-sm-3">
-          <p>beneficio3</p>
-        </div>
-        <div class="col-sm-3">
-          <p>beneficio4</p>
-        </div>
+      <div class="mt-2 mb-2 d-flex flex-column justify-content-center align-items-center">
+        <button type="button" class="mt-2 btn btnPublic text-white" (click)="goToRegistration()"><i class="bi bi-arrow-up-right-circle-fill"></i>Únete a nosotros</button>
+        <button type="button" class="mt-2 btn btnPublic text-white" (click)="goToMainGuest()"><i class="bi bi-eyeglasses"></i>Invitado</button>
       </div>
-      <button id="registro" type="button" class="btn comunidad text-white" (click)="goToRegistration()">Únete a la comunidad</button>
-      <button id="registro" type="button" class="mt-2 btn comunidad text-white" (click)="goToMainGuest()">Juega como invitado</button>
     </div>
   </div>
 </div>
+
+

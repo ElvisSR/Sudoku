@@ -1,3 +1,10 @@
 .error{
     color:red;
 }
+
+.btn{
+    background-color:#626fcf;
+    color:#FFFF;
+    border:2px solid #000000;
+    font-size: 20px;
+}

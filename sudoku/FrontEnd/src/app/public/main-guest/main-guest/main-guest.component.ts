@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cronometro } from 'src/app/model/cronometro';
 import { Sudoku } from 'src/app/model/sudoku';
 
@@ -18,15 +19,13 @@ export class MainGuestComponent {
   esperando:number=0;
   nombre:string="";
   fallos:number=0;
-  maximosFallos:number=4;//Al cuarto fallo se termina la partida
 
-  constructor(){
+  constructor(private router:Router){
     this.numeros=this.sudo.mostrar_numeros();//Mostrar de primeras los números
   }
 
   resolver(){
     this.sudo.resolver();//Nos devuelve el sudoku resuelto
-    alert("Abandonaste");
   }
 
   async generarSudoku(){
@@ -34,7 +33,7 @@ export class MainGuestComponent {
     this.esperando=1;
     await this.crono.esperaDe4Segundos();//Mientras se ejecute la cuanto a 4 no se sigue con lo demás
     this.esperando=2;
-    this.sudo.generarSudoku(0.01);
+    this.sudo.generarSudoku(0.2);
     this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
     this.tablero = this.sudo.mostrar_tablero();
   }
@@ -57,13 +56,14 @@ export class MainGuestComponent {
     }
     else{
       this.fallos++;
-      if(this.fallos == this.maximosFallos){
-        alert("Has alcanzado el máximo de fallos");
-      }
     }
   }
 
   sonIguales(matriz1: number[][], matriz2: number[][]):boolean{
     return JSON.stringify(matriz1) === JSON.stringify(matriz2);
+  }
+
+  goToLanding(){
+    this.router.navigate(["/"]);
   }
 }

@@ -41,4 +41,8 @@ export class LoginComponent {
       );
     }
   }
+
+  goToLanding(){
+    this.router.navigate(["/"]);
+  }
 }

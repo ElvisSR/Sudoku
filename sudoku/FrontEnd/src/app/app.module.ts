@@ -12,6 +12,7 @@ import { LoginComponent } from './public/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PerfilComponent } from './registered/perfil/perfil.component';
 import { MainGuestComponent } from './public/main-guest/main-guest/main-guest.component';
+import { NavbarRegisteredComponent } from './registered/navbar-registered/navbar-registered.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MainGuestComponent } from './public/main-guest/main-guest/main-guest.co
     RegistrationFormComponent,
     LoginComponent,
     PerfilComponent,
-    MainGuestComponent
+    MainGuestComponent,
+    NavbarRegisteredComponent
   ],
   imports: [
     BrowserModule,

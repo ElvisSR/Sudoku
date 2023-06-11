@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+    font-family: 'Redkost Comic', sans-serif;
+}
+body{
+    background-image: linear-gradient(to right, #caceea, #b3bbfa);
+}
+.pass{
+    font-family: sans-serif;
+}
+.error{
+    color: #ff0000;
+}
+.acierto{
+    color:#056f15;
+}

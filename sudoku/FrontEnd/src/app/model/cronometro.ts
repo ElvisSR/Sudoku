@@ -53,7 +53,7 @@ export class Cronometro {
     return new Promise((resolve) => {
       setTimeout(() => { 
         resolve();
-      }, 4000);
+      }, 3000);
     });
   }
 

@@ -47,13 +47,17 @@ export class RegistrationFormComponent {
         (response) => {
           this.respuesta=true;
           if(response=="exito"){
-            this.router.navigate(['login'], { queryParams: { param: true } });
+            this.router.navigate(["/login"]);
           }
           if(response=="existe"){
-            this.mensaje="el usuario ya existe";
+            this.mensaje="El nombre de usuario ya existe";
           }
         }
       );
     }
+  }
+
+  goToLanding(){
+    this.router.navigate(["/"]);
   }
 }

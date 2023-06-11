@@ -22,6 +22,8 @@ export class MainSudokuComponent {
   numeros:number[]=[]
   numero:number = 0
   esperando:number=0;
+  scoreFallos:number=0;
+  derrota:number=0;
   nombre:string="";
   fallos:number=0;
   maximosFallos:number=4;//Al cuarto fallo se termina la partida
@@ -36,14 +38,25 @@ export class MainSudokuComponent {
   }
 
   resolver(){
-    this.sudo.resolver();//Nos devuelve el sudoku resuelto
+    if(!this.sonIguales(this.tablero,this.tableroSolucionado)){
+      this.derrota=1;
+      this.scoreFallos=0;
+      this.crono.detener();
+      this.sudo.resolver();//Nos devuelve el sudoku resuelto
+      let dificultad = (document.getElementById("miDificultad") as HTMLSelectElement).value;
+      let fallos = this.fallos.toString();
+      this.crud.insertarHistorial(this.nombre,"Derrota",dificultad,fallos,this.tiempo).subscribe();
+    }
   }
 
   async generarSudoku(){
+    this.derrota=0;
+    this.crono.detener();
     this.fallos=0;
     this.esperando=1;
     await this.crono.esperaDe4Segundos();//Mientras se ejecute la cuanto a 4 no se sigue con lo demás
     this.esperando=2;
+    this.scoreFallos=2;
     
     let select = document.getElementById('miDificultad') as HTMLSelectElement;
     let dificultad = select.value;//Sacamos el valor seleccionado del select
@@ -52,17 +65,19 @@ export class MainSudokuComponent {
       //Dependiendo de la dificultad, genero un sudoku pasando el número oportuno, guardo el tablero solucionado
       //Mostramos el tablero en el que jugará el cliente
       case "facil":
-        this.sudo.generarSudoku(0.01);
+        this.sudo.generarSudoku(0.06);
         this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
         this.tablero = this.sudo.mostrar_tablero();
         break;
       case "medio":
         this.sudo.generarSudoku(0.6);
         this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
+        this.tablero = this.sudo.mostrar_tablero();
         break;
       case "dificil":
         this.sudo.generarSudoku(0.7);
         this.tableroSolucionado = this.sudo.mostrar_tableroSolucionado();
+        this.tablero = this.sudo.mostrar_tablero();
         break;
       default:
         break;
@@ -96,21 +111,18 @@ export class MainSudokuComponent {
         });
         let dificultad = (document.getElementById("miDificultad") as HTMLSelectElement).value;
         let fallos = this.fallos.toString();
-        this.crud.insertarHistorial(this.nombre,"victoria",dificultad,fallos,this.tiempo).subscribe(
-          (response) => {
-            if(response){
-              console.log(response);
-            }
-          }
-        );
+        this.crud.insertarHistorial(this.nombre,"Victoria",dificultad,fallos,this.tiempo).subscribe();
       }
     }
     else{
       this.fallos++;
       if(this.fallos == this.maximosFallos){
-        alert("Has alcanzado el máximo de fallos");
         this.resolver();
         this.crono.detener();
+        this.scoreFallos=0;
+        let dificultad = (document.getElementById("miDificultad") as HTMLSelectElement).value;
+        let fallos = this.fallos.toString();
+        this.crud.insertarHistorial(this.nombre,"Derrota",dificultad,fallos,this.tiempo).subscribe();
       }
     }
   }
@@ -119,11 +131,7 @@ export class MainSudokuComponent {
     return JSON.stringify(matriz1) === JSON.stringify(matriz2);
   }
 
-  goToPerfil(){
-    this.router.navigate(['perfil'], { queryParams: { param: this.nombre } });
-  }
-
-  goToLogin(){
+  goToLanding(){
     this.cookie.delete('token');
     this.router.navigate(["/"]);
   }
